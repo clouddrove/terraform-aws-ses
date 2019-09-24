@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "ses" {
-  source = "./../"
+  source = "git::https://github.com/clouddrove/terraform-aws-ses.git?ref=tags/0.12.1"
 
   domain   = "clouddrove.com"
   iam_name = "ses-user"
