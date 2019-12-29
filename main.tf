@@ -24,7 +24,7 @@ resource "aws_ses_domain_identity" "default" {
 resource "aws_ses_domain_identity_verification" "default" {
   count      = var.enable_verification ? 1 : 0
   domain     = aws_ses_domain_identity.default[count.index].id
-  depends_on = ["aws_route53_record.ses_verification"]
+  depends_on = [aws_route53_record.ses_verification]
 }
 
 #Module      : DOMAIN IDENTITY VERIFICATION ROUTE53
