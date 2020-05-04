@@ -167,20 +167,20 @@ resource "aws_ses_template" "default" {
 # Description : Terraform module which creates SMTP Iam user resource on AWS
 resource "aws_iam_user" "default" {
   count = var.iam_name != "" ? 1 : 0
-  name = var.iam_name
+  name  = var.iam_name
 }
 
 # Module      : IAM ACCESS KEY
 # Description : Terraform module which creates SMTP Iam access key resource on AWS
 resource "aws_iam_access_key" "default" {
   count = var.iam_name != "" ? 1 : 0
-  user = aws_iam_user.default[0].name
+  user  = aws_iam_user.default[0].name
 }
 
 # Module      : IAM USER POLICY
 # Description : Terraform module which creates SMTP Iam user policy resource on AWS
 resource "aws_iam_user_policy" "default" {
-  count = var.iam_name != "" ? 1 : 0
+  count  = var.iam_name != "" ? 1 : 0
   name   = var.iam_name
   user   = aws_iam_user.default[0].name
   policy = data.aws_iam_policy_document.allow_iam_name_to_send_emails.json
