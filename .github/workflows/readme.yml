@@ -30,7 +30,7 @@ jobs:
         uses: pre-commit/action@v2.0.0
         continue-on-error: true
 
-      - name: 'pre-commit fix erros'
+      - name: 'pre-commit fix errors'
         uses: pre-commit/action@v2.0.0
         continue-on-error: true
 
