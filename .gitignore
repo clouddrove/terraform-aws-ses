@@ -4,3 +4,6 @@
 .terraform
 .idea
 *.iml
+/_test/go.sum
+/_test/go.mod
+/_example/.terraform.lock.hcl
