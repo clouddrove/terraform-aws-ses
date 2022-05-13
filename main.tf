@@ -188,6 +188,7 @@ resource "aws_iam_user_policy" "default" {
 
 # Module      : IAM USER POLICY DOCUMENT
 # Description : Terraform module which creates SMTP Iam user policy document resource on AWS
+#tfsec:ignore:aws-iam-no-policy-wildcards
 data "aws_iam_policy_document" "allow_iam_name_to_send_emails" {
   statement {
     actions   = ["ses:SendRawEmail"]
