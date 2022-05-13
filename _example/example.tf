@@ -6,7 +6,7 @@ module "ses" {
   source = "./../"
 
   domain   = "clouddrove.com"
-  iam_name = "ses-user"
+  iam_name = "ses-user1"
 
   enable_verification = false
   enable_mx           = false
