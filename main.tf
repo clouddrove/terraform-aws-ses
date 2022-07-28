@@ -63,7 +63,7 @@ resource "aws_route53_record" "dkim" {
 #Description : Terraform module to create domain mail from on AWS
 resource "aws_ses_domain_mail_from" "default" {
   count            = var.enable_mail_from ? 1 : 0
-  domain           = aws_ses_domain_identity.default.*.domain
+  domain           = aws_ses_domain_identity.default[count.index].domain
   mail_from_domain = local.stripped_mail_from_domain
 }
 
@@ -145,7 +145,7 @@ data "aws_iam_policy_document" "document" {
 #Description : Terraform module to create ses identity policy on AWS
 resource "aws_ses_identity_policy" "default" {
   count    = var.enable_policy ? 1 : 0
-  identity = aws_ses_domain_identity.default.*.arn
+  identity = aws_ses_domain_identity.default[count.index].arn
   name     = var.policy_name
   policy   = data.aws_iam_policy_document.document.json
 }
