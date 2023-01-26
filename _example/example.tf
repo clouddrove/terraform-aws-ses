@@ -5,6 +5,10 @@ provider "aws" {
 module "ses" {
   source = "./../"
 
+  name        = "ses"
+  environment = "example"
+  label_order = ["name", "environment"]
+
   domain   = "clouddrove.com"
   iam_name = "ses-user1"
 

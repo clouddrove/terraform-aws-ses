@@ -1,3 +1,35 @@
+#Module      : LABEL
+#Description : Terraform label module variables.
+variable "name" {
+  type        = string
+  default     = ""
+  description = "Name  (e.g. `app` or `cluster`)."
+}
+
+variable "environment" {
+  type        = string
+  default     = ""
+  description = "Environment (e.g. `prod`, `dev`, `staging`)."
+}
+
+variable "repository" {
+  type        = string
+  default     = "https://github.com/clouddrove/terraform-aws-ses"
+  description = "Terraform current module repo"
+}
+
+variable "label_order" {
+  type        = list(any)
+  default     = []
+  description = "Label order, e.g. `name`,`application`."
+}
+
+variable "managedby" {
+  type        = string
+  default     = "hello@clouddrove.com"
+  description = "ManagedBy, eg 'CloudDrove'"
+}
+
 #Module      : DOMAIN IDENTITY
 #Description : Terraform domain identity module variables.
 variable "domain" {
@@ -23,6 +55,12 @@ variable "enable_mail_from" {
   type        = bool
   default     = false
   description = "Control whether or not to enable mail from domain."
+}
+
+variable "enabled" {
+  type        = bool
+  default     = true
+  description = "Boolean indicating whether or not to create sns module."
 }
 
 variable "enable_domain" {
