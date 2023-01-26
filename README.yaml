@@ -43,7 +43,7 @@ usage : |-
   ```hcl
   module "ses" {
     source              = "clouddrove/ses/aws"
-    version             = "1.0.1"
+    version             = "1.3.0"
     domain              = "clouddrove.com"
     iam_name            = "ses-user"
     zone_id             = "DSSCTGRTHD"

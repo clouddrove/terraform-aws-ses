@@ -10,6 +10,18 @@ locals {
   dash_domain               = replace(var.domain, ".", "-")
 }
 
+module "labels" {
+  source  = "clouddrove/labels/aws"
+  version = "1.3.0"
+
+  name        = var.name
+  environment = var.environment
+  managedby   = var.managedby
+  label_order = var.label_order
+  repository  = var.repository
+}
+
+
 #Module      : DOMAIN IDENTITY
 #Description : Terraform module to create domain identity using domain
 resource "aws_ses_domain_identity" "default" {
@@ -22,7 +34,8 @@ resource "aws_ses_domain_identity" "default" {
 #Module      : DOMAIN IDENTITY VERIFICATION
 #Description : Terraform module to verify domain identity using domain
 resource "aws_ses_domain_identity_verification" "default" {
-  count      = var.enable_verification ? 1 : 0
+  count      = var.enabled && var.enable_verification ? 1 : 0
+
   domain     = aws_ses_domain_identity.default[count.index].id
   depends_on = [aws_route53_record.ses_verification]
 }
@@ -30,9 +43,10 @@ resource "aws_ses_domain_identity_verification" "default" {
 #Module      : DOMAIN IDENTITY VERIFICATION ROUTE53
 #Description : Terraform module to record of Route53 for verify domain identity using domain
 resource "aws_route53_record" "ses_verification" {
-  count   = var.zone_id != "" ? 1 : 0
+  count   = var.enabled && var.zone_id != "" ? 1 : 0
+
   zone_id = var.zone_id
-  name    = "_amazonses"
+  name    = module.labels.id
   type    = var.txt_type
   ttl     = "600"
   records = [aws_ses_domain_identity.default[count.index].verification_token]
@@ -49,7 +63,8 @@ resource "aws_ses_domain_dkim" "default" {
 #Module      : DOMAIN DKIM VERIFICATION
 #Description : Terraform module to verify domain DKIM on AWS
 resource "aws_route53_record" "dkim" {
-  count   = var.zone_id != "" ? 3 : 0
+  count   = var.enabled && var.zone_id != "" ? 3 : 0
+
   zone_id = var.zone_id
   name    = format("%s._domainkey.%s", element(aws_ses_domain_dkim.default.dkim_tokens, count.index), var.domain)
   type    = var.cname_type
@@ -62,7 +77,8 @@ resource "aws_route53_record" "dkim" {
 #Module      : DOMAIN MAIL FROM
 #Description : Terraform module to create domain mail from on AWS
 resource "aws_ses_domain_mail_from" "default" {
-  count            = var.enable_mail_from ? 1 : 0
+  count            = var.enabled && var.enable_mail_from ? 1 : 0
+
   domain           = aws_ses_domain_identity.default[count.index].domain
   mail_from_domain = local.stripped_mail_from_domain
 }
@@ -72,7 +88,8 @@ resource "aws_ses_domain_mail_from" "default" {
 #Module      : SPF RECORD
 #Description : Terraform module to create record of SPF for domain mail from
 resource "aws_route53_record" "spf_mail_from" {
-  count   = var.enable_mail_from ? 1 : 0
+  count   = var.enabled && var.enable_mail_from ? 1 : 0
+
   zone_id = var.zone_id
   name    = aws_ses_domain_mail_from.default[count.index].mail_from_domain
   type    = var.txt_type
@@ -84,8 +101,9 @@ resource "aws_route53_record" "spf_mail_from" {
 #Description : Terraform module to create record of SPF for domain
 resource "aws_route53_record" "spf_domain" {
   count   = var.enable_spf_domain && var.zone_id != "" ? 1 : 0
+
   zone_id = var.zone_id
-  name    = var.domain
+  name    = module.labels.id
   type    = var.txt_type
   ttl     = "600"
   records = ["v=spf1 include:amazonses.com -all"]
@@ -99,6 +117,7 @@ data "aws_region" "current" {}
 #Description : Terraform module to create record of MX for domain mail from
 resource "aws_route53_record" "mx_send_mail_from" {
   count   = var.zone_id != "" && var.enable_mail_from ? 1 : 0
+
   zone_id = var.zone_id
   name    = aws_ses_domain_mail_from.default[count.index].mail_from_domain
   type    = var.mx_type
@@ -112,8 +131,9 @@ resource "aws_route53_record" "mx_send_mail_from" {
 #Description : Terraform module to create record of MX for receipt
 resource "aws_route53_record" "mx_receive" {
   count   = var.enable_mx && var.zone_id != "" ? 1 : 0
+
   zone_id = var.zone_id
-  name    = var.domain
+  name    = module.labels.id
   type    = var.mx_type
   ttl     = "600"
   records = [format("10 inbound-smtp.%s.amazonaws.com", data.aws_region.current.name)]
@@ -122,8 +142,9 @@ resource "aws_route53_record" "mx_receive" {
 #Module      : SES FILTER
 #Description : Terraform module to create receipt filter on AWS
 resource "aws_ses_receipt_filter" "default" {
-  count  = var.enable_filter ? 1 : 0
-  name   = var.filter_name
+  count  = var.enabled && var.enable_filter ? 1 : 0
+
+  name   = module.labels.id
   cidr   = var.filter_cidr
   policy = var.filter_policy
 }
@@ -144,17 +165,19 @@ data "aws_iam_policy_document" "document" {
 #Module      : SES IDENTITY POLICY
 #Description : Terraform module to create ses identity policy on AWS
 resource "aws_ses_identity_policy" "default" {
-  count    = var.enable_policy ? 1 : 0
+  count    = var.enabled && var.enable_policy ? 1 : 0
+
   identity = aws_ses_domain_identity.default[count.index].arn
-  name     = var.policy_name
+  name     = module.labels.id
   policy   = data.aws_iam_policy_document.document.json
 }
 
 #Module      : SES TEMPLATE
 #Description : Terraform module to create template on AWS
 resource "aws_ses_template" "default" {
-  count   = var.enable_template ? 1 : 0
-  name    = var.template_name
+  count   = var.enabled && var.enable_template ? 1 : 0
+
+  name    = module.labels.id
   subject = var.template_subject
   html    = var.template_html
   text    = var.text
@@ -166,22 +189,25 @@ resource "aws_ses_template" "default" {
 # Module      : IAM USER
 # Description : Terraform module which creates SMTP Iam user resource on AWS
 resource "aws_iam_user" "default" {
-  count = var.iam_name != "" ? 1 : 0
-  name  = var.iam_name
+  count = var.enabled && var.iam_name != "" ? 1 : 0
+
+  name  = module.labels.id
 }
 
 # Module      : IAM ACCESS KEY
 # Description : Terraform module which creates SMTP Iam access key resource on AWS
 resource "aws_iam_access_key" "default" {
-  count = var.iam_name != "" ? 1 : 0
+  count = var.enabled && var.iam_name != "" ? 1 : 0
+
   user  = join("", aws_iam_user.default.*.name)
 }
 
 # Module      : IAM USER POLICY
 # Description : Terraform module which creates SMTP Iam user policy resource on AWS
 resource "aws_iam_user_policy" "default" {
-  count  = var.iam_name != "" ? 1 : 0
-  name   = var.iam_name
+  count  = var.enabled && var.iam_name != "" ? 1 : 0
+
+  name   = module.labels.id
   user   = join("", aws_iam_user.default.*.name)
   policy = data.aws_iam_policy_document.allow_iam_name_to_send_emails.json
 }
