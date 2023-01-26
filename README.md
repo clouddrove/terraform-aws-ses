@@ -79,7 +79,7 @@ Here is an example of how you can use this module in your inventory structure:
 ```hcl
 module "ses" {
   source              = "clouddrove/ses/aws"
-  version             = "1.0.1"
+  version             = "1.3.0"
   domain              = "clouddrove.com"
   iam_name            = "ses-user"
   zone_id             = "DSSCTGRTHD"
@@ -108,13 +108,19 @@ module "ses" {
 | enable\_spf\_domain | Control whether or not to enable enable spf domain. | `bool` | `false` | no |
 | enable\_template | Control whether create a template for emails. | `bool` | `false` | no |
 | enable\_verification | Control whether or not to verify SES DNS records. | `bool` | `false` | no |
+| enabled | Boolean indicating whether or not to create sns module. | `bool` | `true` | no |
+| environment | Environment (e.g. `prod`, `dev`, `staging`). | `string` | `""` | no |
 | filter\_cidr | The IP address or address range to filter, in CIDR notation. | `string` | `""` | no |
 | filter\_name | The name of the filter. | `string` | `""` | no |
 | filter\_policy | Block or Allow filter. | `string` | `""` | no |
 | iam\_name | IAM username. | `string` | `""` | no |
+| label\_order | Label order, e.g. `name`,`application`. | `list(any)` | `[]` | no |
 | mail\_from\_domain | Subdomain (of the route53 zone) which is to be used as MAIL FROM address. | `string` | `""` | no |
+| managedby | ManagedBy, eg 'CloudDrove' | `string` | `"hello@clouddrove.com"` | no |
 | mx\_type | MX type for Record Set. | `string` | `"MX"` | no |
+| name | Name  (e.g. `app` or `cluster`). | `string` | `""` | no |
 | policy\_name | Name of the policy. | `string` | `""` | no |
+| repository | Terraform current module repo | `string` | `"https://github.com/clouddrove/terraform-aws-ses"` | no |
 | ses\_records | Additional entries which are added to the \_amazonses record. | `list(string)` | `[]` | no |
 | template\_html | The HTML body of the email. Must be less than 500KB in size, including both the text and HTML parts. | `string` | `""` | no |
 | template\_name | The name of the template. Cannot exceed 64 characters. You will refer to this name when you send email. | `string` | `""` | no |
@@ -128,6 +134,7 @@ module "ses" {
 | Name | Description |
 |------|-------------|
 | domain\_identity\_arn | ARN of the SES domain identity. |
+| id | The domain name of the domain identity. |
 
 
 
