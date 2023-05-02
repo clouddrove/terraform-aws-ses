@@ -191,7 +191,7 @@ resource "aws_ses_template" "default" {
 resource "aws_iam_user" "default" {
   count = var.enabled && var.iam_name != "" ? 1 : 0
 
-  name  = module.labels.id
+  name  = var.iam_name
 }
 
 # Module      : IAM ACCESS KEY
