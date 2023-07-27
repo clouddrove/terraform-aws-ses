@@ -21,7 +21,6 @@ module "labels" {
   repository  = var.repository
 }
 
-
 #Module      : DOMAIN IDENTITY
 #Description : Terraform module to create domain identity using domain
 resource "aws_ses_domain_identity" "default" {
@@ -108,7 +107,7 @@ resource "aws_route53_record" "spf_mail_from" {
 #Module      : SPF RECORD
 #Description : Terraform module to create record of SPF for domain
 resource "aws_route53_record" "spf_domain" {
-  count = var.enable_spf_domain && var.zone_id != "" ? 1 : 0
+  count = var.enabled && var.enable_spf_domain && var.zone_id != "" ? 1 : 0
 
   zone_id = var.zone_id
   name    = module.labels.id
@@ -124,7 +123,7 @@ data "aws_region" "current" {}
 #Module      : MX RECORD
 #Description : Terraform module to create record of MX for domain mail from
 resource "aws_route53_record" "mx_send_mail_from" {
-  count = var.zone_id != "" && var.enable_mail_from ? 1 : 0
+  count = var.enabled && var.zone_id != "" && var.enable_mail_from ? 1 : 0
 
   zone_id = var.zone_id
   name    = aws_ses_domain_mail_from.default[count.index].mail_from_domain
@@ -138,7 +137,7 @@ resource "aws_route53_record" "mx_send_mail_from" {
 #Module      : MX RECORD
 #Description : Terraform module to create record of MX for receipt
 resource "aws_route53_record" "mx_receive" {
-  count = var.enable_mx && var.zone_id != "" ? 1 : 0
+  count = var.enabled && var.enable_mx && var.zone_id != "" ? 1 : 0
 
   zone_id = var.zone_id
   name    = module.labels.id
@@ -160,7 +159,7 @@ resource "aws_ses_receipt_filter" "default" {
 #Module      : SES BUCKET POLICY
 #Description : Document of Policy to create Identity policy of SES
 data "aws_iam_policy_document" "document" {
-  count = var.enable_domain ? 1 : 0
+  count = var.enabled && var.enable_domain ? 1 : 0
   statement {
     actions   = ["SES:SendEmail", "SES:SendRawEmail"]
     resources = [aws_ses_domain_identity.default[0].arn]
