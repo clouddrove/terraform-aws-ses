@@ -25,14 +25,14 @@ module "labels" {
 #Module      : DOMAIN IDENTITY
 #Description : Terraform module to create domain identity using domain
 resource "aws_ses_domain_identity" "default" {
-  count  = var.enable_domain ? 1 : 0
+  count  = var.enabled && var.enable_domain ? 1 : 0
   domain = var.domain
 }
 
 #Module      : EMAIL IDENTITY
 #Description : Terraform module to create Emails identity using domain
 resource "aws_ses_email_identity" "default" {
-  count = var.enable_email ? length(var.emails) : 0
+  count = var.enabled && var.enable_email ? length(var.emails) : 0
   email = var.emails[count.index]
 }
 
@@ -62,7 +62,7 @@ resource "aws_route53_record" "ses_verification" {
 # Module      : DOMAIN DKIM
 # Description : Terraform module which creates Domain DKIM resource on AWS
 resource "aws_ses_domain_dkim" "default" {
-  count  = var.enable_domain ? 1 : 0
+  count  = var.enabled && var.enable_domain ? 1 : 0
   domain = aws_ses_domain_identity.default[0].domain
 }
 
