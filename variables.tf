@@ -30,10 +30,17 @@ variable "managedby" {
   description = "ManagedBy, eg 'CloudDrove'"
 }
 
+variable "emails" {
+  type        = list(string)
+  default     = []
+  description = "Emails list to use for SES."
+}
+
 #Module      : DOMAIN IDENTITY
 #Description : Terraform domain identity module variables.
 variable "domain" {
   type        = string
+  default     = ""
   description = "Domain to use for SES."
 }
 
@@ -66,7 +73,13 @@ variable "enabled" {
 variable "enable_domain" {
   type        = bool
   default     = true
-  description = "Control whether or not to enable domain."
+  description = "Control whether or not to enable domain identity for AWS SES."
+}
+
+variable "enable_email" {
+  type        = bool
+  default     = false
+  description = "Control whether or not to enable email identity for AWS SES."
 }
 
 variable "enable_mx" {
