@@ -77,16 +77,20 @@ This module has a few dependencies:
 ### Simple Example
 Here is an example of how you can use this module in your inventory structure:
 ```hcl
-module "ses" {
-  source              = "clouddrove/ses/aws"
-  version             = "1.3.0"
-  domain              = "clouddrove.com"
-  iam_name            = "ses-user"
-  zone_id             = "DSSCTGRTHD"
-  enable_verification = true
-  enable_mx           = false
-  enable_spf_domain   = false
- }
+  module "ses" {
+    source              = "clouddrove/ses/aws"
+    version             = "1.3.0"
+  
+    domain       = "clouddrove.com"
+    enable_email = true
+    emails       = ["random@gmail.com"]
+    iam_name     = "ses-user1"
+
+    zone_id             = "DSSCTGRTHD"
+    enable_verification = false
+    enable_mx           = false
+    enable_spf_domain   = false
+  }
 ```
 
 

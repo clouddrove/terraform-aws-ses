@@ -9,8 +9,10 @@ module "ses" {
   environment = "example"
   label_order = ["name", "environment"]
 
-  domain   = "clouddrove.com"
-  iam_name = "ses-user1"
+  domain       = "clouddrove.com"
+  enable_email = true
+  emails       = ["random@gmail.com"]
+  iam_name     = "ses-user1"
 
   enable_verification = false
   enable_mx           = false
