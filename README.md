@@ -56,11 +56,7 @@ We have [*fifty plus terraform modules*][terraform_modules]. A few of them are c
 ## Prerequisites
 
 This module has a few dependencies: 
-
-- [Terraform 1.x.x](https://learn.hashicorp.com/terraform/getting-started/install.html)
-- [Go](https://golang.org/doc/install)
-- [github.com/stretchr/testify/assert](https://github.com/stretchr/testify)
-- [github.com/gruntwork-io/terratest/modules/terraform](https://github.com/gruntwork-io/terratest)
+- [Terraform 1.4.6](https://learn.hashicorp.com/terraform/getting-started/install.html)
 
 
 
@@ -77,20 +73,20 @@ This module has a few dependencies:
 ### Simple Example
 Here is an example of how you can use this module in your inventory structure:
 ```hcl
-  module "ses" {
-    source              = "clouddrove/ses/aws"
-    version             = "1.3.0"
-  
-    domain       = "clouddrove.com"
-    enable_email = true
-    emails       = ["random@gmail.com"]
-    iam_name     = "ses-user1"
+module "ses" {
+  source              = "clouddrove/ses/aws"
+  version             = "1.3.1"
 
-    zone_id             = "DSSCTGRTHD"
-    enable_verification = false
-    enable_mx           = false
-    enable_spf_domain   = false
-  }
+  domain       = "clouddrove.com"
+  enable_email = true
+  emails       = ["random@gmail.com"]
+  iam_name     = "ses-user1"
+
+  zone_id             = "DSSCTGRTHD"
+  enable_verification = false
+  enable_mx           = false
+  enable_spf_domain   = false
+}
 ```
 
 
@@ -103,8 +99,10 @@ Here is an example of how you can use this module in your inventory structure:
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | cname\_type | CNAME type for Record Set. | `string` | `"CNAME"` | no |
-| domain | Domain to use for SES. | `string` | n/a | yes |
-| enable\_domain | Control whether or not to enable domain. | `bool` | `true` | no |
+| domain | Domain to use for SES. | `string` | `""` | no |
+| emails | Emails list to use for SES. | `list(string)` | `[]` | no |
+| enable\_domain | Control whether or not to enable domain identity for AWS SES. | `bool` | `true` | no |
+| enable\_email | Control whether or not to enable email identity for AWS SES. | `bool` | `false` | no |
 | enable\_filter | Control whether or not to enable receipt filter. | `bool` | `false` | no |
 | enable\_mail\_from | Control whether or not to enable mail from domain. | `bool` | `false` | no |
 | enable\_mx | Control whether or not to enable mx DNS recodrds. | `bool` | `false` | no |
@@ -115,7 +113,6 @@ Here is an example of how you can use this module in your inventory structure:
 | enabled | Boolean indicating whether or not to create sns module. | `bool` | `true` | no |
 | environment | Environment (e.g. `prod`, `dev`, `staging`). | `string` | `""` | no |
 | filter\_cidr | The IP address or address range to filter, in CIDR notation. | `string` | `""` | no |
-| filter\_name | The name of the filter. | `string` | `""` | no |
 | filter\_policy | Block or Allow filter. | `string` | `""` | no |
 | iam\_name | IAM username. | `string` | `""` | no |
 | label\_order | Label order, e.g. `name`,`application`. | `list(any)` | `[]` | no |
@@ -123,11 +120,8 @@ Here is an example of how you can use this module in your inventory structure:
 | managedby | ManagedBy, eg 'CloudDrove' | `string` | `"hello@clouddrove.com"` | no |
 | mx\_type | MX type for Record Set. | `string` | `"MX"` | no |
 | name | Name  (e.g. `app` or `cluster`). | `string` | `""` | no |
-| policy\_name | Name of the policy. | `string` | `""` | no |
 | repository | Terraform current module repo | `string` | `"https://github.com/clouddrove/terraform-aws-ses"` | no |
-| ses\_records | Additional entries which are added to the \_amazonses record. | `list(string)` | `[]` | no |
 | template\_html | The HTML body of the email. Must be less than 500KB in size, including both the text and HTML parts. | `string` | `""` | no |
-| template\_name | The name of the template. Cannot exceed 64 characters. You will refer to this name when you send email. | `string` | `""` | no |
 | template\_subject | The subject line of the email. | `string` | `""` | no |
 | text | The email body that will be visible to recipients whose email clients do not display HTML. | `string` | `""` | no |
 | txt\_type | Txt type for Record Set. | `string` | `"TXT"` | no |
