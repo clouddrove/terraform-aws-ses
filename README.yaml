@@ -28,6 +28,10 @@ badges:
     image: "https://github.com/clouddrove/terraform-aws-ses/actions/workflows/terraform.yml/badge.svg"
     url: "https://github.com/clouddrove/terraform-aws-ses/actions/workflows/terraform.yml"
 
+prerequesties:
+  - name: Terraform 1.4.6
+    url: https://learn.hashicorp.com/terraform/getting-started/install.html
+    
 #  description of this project
 description: |-
   Terraform module to create an SES Identity with SES IAM user on AWS.
@@ -44,11 +48,15 @@ usage : |-
   module "ses" {
     source              = "clouddrove/ses/aws"
     version             = "1.3.0"
-    domain              = "clouddrove.com"
-    iam_name            = "ses-user"
+  
+    domain       = "clouddrove.com"
+    enable_email = true
+    emails       = ["random@gmail.com"]
+    iam_name     = "ses-user1"
+
     zone_id             = "DSSCTGRTHD"
-    enable_verification = true
+    enable_verification = false
     enable_mx           = false
     enable_spf_domain   = false
-   }
+  }
   ```
