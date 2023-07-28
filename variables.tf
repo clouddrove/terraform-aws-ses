@@ -124,12 +124,6 @@ variable "zone_id" {
   description = "Route53 host zone ID to enable SES."
 }
 
-variable "filter_name" {
-  type        = string
-  default     = ""
-  description = "The name of the filter."
-}
-
 variable "filter_cidr" {
   type        = string
   default     = ""
@@ -140,18 +134,6 @@ variable "filter_policy" {
   type        = string
   default     = ""
   description = "Block or Allow filter."
-}
-
-variable "policy_name" {
-  type        = string
-  default     = ""
-  description = "Name of the policy."
-}
-
-variable "template_name" {
-  type        = string
-  default     = ""
-  description = "The name of the template. Cannot exceed 64 characters. You will refer to this name when you send email."
 }
 
 variable "template_subject" {
@@ -188,10 +170,4 @@ variable "cname_type" {
   type        = string
   default     = "CNAME"
   description = "CNAME type for Record Set."
-}
-
-variable "ses_records" {
-  type        = list(string)
-  default     = []
-  description = "Additional entries which are added to the _amazonses record."
 }
