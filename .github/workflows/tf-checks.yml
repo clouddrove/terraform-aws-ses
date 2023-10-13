@@ -5,7 +5,7 @@ on:
   pull_request:
   workflow_dispatch:
 jobs:
-  complete:
-    uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@master
+  _example:
+    uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@1.0.6
     with:
       working_directory: './_example/'

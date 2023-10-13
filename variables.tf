@@ -20,7 +20,7 @@ variable "repository" {
 
 variable "label_order" {
   type        = list(any)
-  default     = []
+  default     = ["name", "environment"]
   description = "Label order, e.g. `name`,`application`."
 }
 
@@ -170,4 +170,19 @@ variable "cname_type" {
   type        = string
   default     = "CNAME"
   description = "CNAME type for Record Set."
+}
+
+variable "spf_txt_record" {
+  description = "DNS TXT record for SPF to tell email providers which servers are allowed to send email from their domains. Variable is portion of the SPF TXT record."
+  type        = string
+  default     = "v=spf1 include:amazonses.com -all"
+}
+
+variable "spf_domain_name" {
+  type    = string
+  default = "spf_domain"
+}
+variable "ses_verification_name" {
+  type    = string
+  default = "ses_verification"
 }
