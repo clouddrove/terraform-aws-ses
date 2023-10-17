@@ -205,7 +205,7 @@ resource "aws_iam_user" "default" {
 resource "aws_iam_access_key" "default" {
   count = var.enabled && var.iam_name != "" ? 1 : 0
 
-  user = join("", aws_iam_user.default.*.name)
+  user = join("", aws_iam_user.default[*].name)
 }
 
 # Module      : IAM USER POLICY
@@ -214,7 +214,7 @@ resource "aws_iam_user_policy" "default" {
   count = var.enabled && var.iam_name != "" ? 1 : 0
 
   name   = module.labels.id
-  user   = join("", aws_iam_user.default.*.name)
+  user   = join("", aws_iam_user.default[*].name)
   policy = data.aws_iam_policy_document.allow_iam_name_to_send_emails.json
 }
 
