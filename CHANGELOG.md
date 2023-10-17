@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.2] - 2023-10-17
+### :memo: Documentation Changes
+- [`dff50c9`](https://github.com/clouddrove/terraform-aws-ses/commit/dff50c95658147a74e784380638b1238627499b3) - update CHANGELOG.md for 1.3.1 *(commit by [@clouddrove-ci](https://github.com/clouddrove-ci))*
+
+
 ## [1.3.1] - 2023-07-28
 ### :sparkles: New Features
 - [`d2730ab`](https://github.com/clouddrove/terraform-aws-ses/commit/d2730ab00ac0a7f92c4fbf5583c45b045175e11c) - fetaure email identities. *(commit by [@anmolnagpal](https://github.com/anmolnagpal))*
@@ -99,3 +104,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.3.0]:  https://github.com/clouddrove/terraform-aws-ses/compare/1.3.0...master
 
 [1.3.1]: https://github.com/clouddrove/terraform-aws-ses/compare/1.3.0...1.3.1
+[1.3.2]: https://github.com/clouddrove/terraform-aws-ses/compare/1.3.1...1.3.2
