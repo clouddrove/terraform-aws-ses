@@ -50,7 +50,7 @@ resource "aws_route53_record" "ses_verification" {
   count = var.enabled && var.zone_id != "" ? 1 : 0
 
   zone_id = var.zone_id
-  name    = module.labels.id
+  name    = var.ses_verification_name
   type    = var.txt_type
   ttl     = "600"
   records = [aws_ses_domain_identity.default[count.index].verification_token]
@@ -108,7 +108,7 @@ resource "aws_route53_record" "spf_domain" {
   count = var.enabled && var.enable_spf_domain && var.zone_id != "" ? 1 : 0
 
   zone_id = var.zone_id
-  name    = module.labels.id
+  name    = var.spf_domain_name
   type    = var.txt_type
   ttl     = "600"
   records = ["v=spf1 include:amazonses.com -all"]
@@ -205,7 +205,7 @@ resource "aws_iam_user" "default" {
 resource "aws_iam_access_key" "default" {
   count = var.enabled && var.iam_name != "" ? 1 : 0
 
-  user = join("", aws_iam_user.default.*.name)
+  user = join("", aws_iam_user.default[*].name)
 }
 
 # Module      : IAM USER POLICY
@@ -214,7 +214,7 @@ resource "aws_iam_user_policy" "default" {
   count = var.enabled && var.iam_name != "" ? 1 : 0
 
   name   = module.labels.id
-  user   = join("", aws_iam_user.default.*.name)
+  user   = join("", aws_iam_user.default[*].name)
   policy = data.aws_iam_policy_document.allow_iam_name_to_send_emails.json
 }
 

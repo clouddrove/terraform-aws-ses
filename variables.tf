@@ -20,7 +20,7 @@ variable "repository" {
 
 variable "label_order" {
   type        = list(any)
-  default     = []
+  default     = ["name", "environment"]
   description = "Label order, e.g. `name`,`application`."
 }
 
@@ -170,4 +170,13 @@ variable "cname_type" {
   type        = string
   default     = "CNAME"
   description = "CNAME type for Record Set."
+}
+
+variable "spf_domain_name" {
+  type    = string
+  default = "spf_domain"
+}
+variable "ses_verification_name" {
+  type    = string
+  default = "ses_verification"
 }
