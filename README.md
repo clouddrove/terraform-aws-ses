@@ -22,10 +22,6 @@
 <a href="https://github.com/clouddrove/terraform-aws-ses/actions/workflows/tfsec.yml">
   <img src="https://github.com/clouddrove/terraform-aws-ses/actions/workflows/tfsec.yml/badge.svg" alt="tfsec">
 </a>
-<a href="https://github.com/clouddrove/terraform-aws-ses/actions/workflows/terraform.yml">
-  <img src="https://github.com/clouddrove/terraform-aws-ses/actions/workflows/terraform.yml/badge.svg" alt="static-checks">
-</a>
-
 
 </p>
 <p align="center">
