@@ -129,6 +129,8 @@ module "ses" {
 |------|-------------|
 | domain\_identity\_arn | ARN of the SES domain identity. |
 | id | The domain name of the domain identity. |
+| iam\_access\_key\_secret | The access key secret. |
+| iam\_access\_key\_id | The access key ID. |
 
 
 
