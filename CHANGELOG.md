@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.3.2] - 2023-12-11
+### :sparkles: New Features
+- [`0500ad8`](https://github.com/clouddrove/terraform-aws-ses/commit/0500ad83de5d0aac55f0ef89ed41c43003b6c4bc) - updated readme.md *(PR [#28](https://github.com/clouddrove/terraform-aws-ses/pull/28) by [@theprashantyadav](https://github.com/theprashantyadav))*
+- [`ab3578c`](https://github.com/clouddrove/terraform-aws-ses/commit/ab3578c369498c57f96fdd1486883af3b99021ee) - added iam output *(PR [#30](https://github.com/clouddrove/terraform-aws-ses/pull/30) by [@theprashantyadav](https://github.com/theprashantyadav))*
+- [`b8b480a`](https://github.com/clouddrove/terraform-aws-ses/commit/b8b480a42f7bc3eb8471a8339ee5cf8145b0369d) - fixed output commente issue *(commit by [@theprashantyadav](https://github.com/theprashantyadav))*
+
+### :memo: Documentation Changes
+- [`70a7ccc`](https://github.com/clouddrove/terraform-aws-ses/commit/70a7ccc627c856229d830240b4a9e04e574a10f9) - update CHANGELOG.md for 1.3.2 *(commit by [@clouddrove-ci](https://github.com/clouddrove-ci))*
+
+
 ## [1.3.2] - 2023-10-17
 ### :memo: Documentation Changes
 - [`dff50c9`](https://github.com/clouddrove/terraform-aws-ses/commit/dff50c95658147a74e784380638b1238627499b3) - update CHANGELOG.md for 1.3.1 *(commit by [@clouddrove-ci](https://github.com/clouddrove-ci))*
@@ -105,3 +115,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [1.3.1]: https://github.com/clouddrove/terraform-aws-ses/compare/1.3.0...1.3.1
 [1.3.2]: https://github.com/clouddrove/terraform-aws-ses/compare/1.3.1...1.3.2
+[v1.3.2]: https://github.com/clouddrove/terraform-aws-ses/compare/1.3.2...v1.3.2
