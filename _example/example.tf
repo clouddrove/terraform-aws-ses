@@ -20,6 +20,6 @@ module "ses" {
   emails       = []
   zone_id      = "XXXXXXXX69XB8J3IEP"
 
-  enable_mx           = true
-  enable_spf_domain   = true
+  enable_mx         = true
+  enable_spf_domain = true
 }
