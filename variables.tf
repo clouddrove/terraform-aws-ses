@@ -52,12 +52,6 @@ variable "iam_name" {
   description = "IAM username."
 }
 
-variable "enable_verification" {
-  type        = bool
-  default     = false
-  description = "Control whether or not to verify SES DNS records."
-}
-
 variable "enable_mail_from" {
   type        = bool
   default     = false
@@ -175,8 +169,4 @@ variable "cname_type" {
 variable "spf_domain_name" {
   type    = string
   default = "spf_domain"
-}
-variable "ses_verification_name" {
-  type    = string
-  default = "ses_verification"
 }
