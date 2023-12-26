@@ -33,29 +33,6 @@ resource "aws_ses_email_identity" "default" {
   email = var.emails[count.index]
 }
 
-###DNS VERIFICATION#######
-
-#Module      : DOMAIN IDENTITY VERIFICATION
-#Description : Terraform module to verify domain identity using domain
-resource "aws_ses_domain_identity_verification" "default" {
-  count = var.enabled && var.enable_domain && var.enable_verification ? 1 : 0
-
-  domain     = aws_ses_domain_identity.default[count.index].id
-  depends_on = [aws_route53_record.ses_verification]
-}
-
-#Module      : DOMAIN IDENTITY VERIFICATION ROUTE53
-#Description : Terraform module to record of Route53 for verify domain identity using domain
-resource "aws_route53_record" "ses_verification" {
-  count = var.enabled && var.zone_id != "" ? 1 : 0
-
-  zone_id = var.zone_id
-  name    = var.ses_verification_name
-  type    = var.txt_type
-  ttl     = "600"
-  records = [aws_ses_domain_identity.default[count.index].verification_token]
-}
-
 # Module      : DOMAIN DKIM
 # Description : Terraform module which creates Domain DKIM resource on AWS
 resource "aws_ses_domain_dkim" "default" {

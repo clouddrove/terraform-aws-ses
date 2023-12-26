@@ -6,7 +6,7 @@ output "domain_identity_arn" {
 }
 
 output "id" {
-  value       = try(aws_ses_domain_identity_verification.default[0].id, "")
+  value       = try(aws_ses_domain_identity.default[0].id, "")
   description = "The domain name of the domain identity."
 }
 
