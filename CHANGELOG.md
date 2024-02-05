@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.3] - 2024-02-05
+### :sparkles: New Features
+- [`803d37c`](https://github.com/clouddrove/terraform-aws-ses/commit/803d37c92904f98dff14c33069cc938a5f4f9fa8) - fixed output commente issue *(PR [#33](https://github.com/clouddrove/terraform-aws-ses/pull/33) by [@theprashantyadav](https://github.com/theprashantyadav))*
+- [`09c7f27`](https://github.com/clouddrove/terraform-aws-ses/commit/09c7f27ea291bb0ebdfb87c0c0af9da4cc68b89e) - Add automerge github shared workflow *(PR [#34](https://github.com/clouddrove/terraform-aws-ses/pull/34) by [@vaibhav7797](https://github.com/vaibhav7797))*
+
+### :bug: Bug Fixes
+- [`1bf7e20`](https://github.com/clouddrove/terraform-aws-ses/commit/1bf7e20a263d3beb28fc3ffc644cd066a16ffdb9) - fix domain identity not found in output issue *(PR [#36](https://github.com/clouddrove/terraform-aws-ses/pull/36) by [@nileshgadgi](https://github.com/nileshgadgi))*
+
+### :memo: Documentation Changes
+- [`ea68390`](https://github.com/clouddrove/terraform-aws-ses/commit/ea6839000ba420e6f46e1362e3b7dd26faa28a73) - update CHANGELOG.md for 1.3.2 *(commit by [@clouddrove-ci](https://github.com/clouddrove-ci))*
+
+
 ## [1.3.2] - 2023-12-11
 ### :sparkles: New Features
 - [`0500ad8`](https://github.com/clouddrove/terraform-aws-ses/commit/0500ad83de5d0aac55f0ef89ed41c43003b6c4bc) - updated readme.md *(PR [#28](https://github.com/clouddrove/terraform-aws-ses/pull/28) by [@theprashantyadav](https://github.com/theprashantyadav))*
@@ -129,3 +141,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.3.2]: https://github.com/clouddrove/terraform-aws-ses/compare/1.3.1...1.3.2
 [v1.3.2]: https://github.com/clouddrove/terraform-aws-ses/compare/1.3.2...v1.3.2
 [1.3.2]: https://github.com/clouddrove/terraform-aws-ses/compare/1.3.1...1.3.2
+[1.3.3]: https://github.com/clouddrove/terraform-aws-ses/compare/1.3.2...1.3.3
