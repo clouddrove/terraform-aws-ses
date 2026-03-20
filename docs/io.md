@@ -39,4 +39,3 @@
 | iam\_access\_key\_id | The access key ID. |
 | iam\_access\_key\_secret | The access key secret. |
 | id | The domain name of the domain identity. |
-
