@@ -15,6 +15,13 @@ output "iam_access_key_secret" {
   value       = try(aws_iam_access_key.default[0].secret, "")
   sensitive   = true
 }
+
+output "iam_access_key_ses_smtp_password_v4" {
+  description = "The SES SMTP Password v4 secret."
+  value       = try(aws_iam_access_key.default[0].ses_smtp_password_v4, "")
+  sensitive   = true
+}
+
 output "iam_access_key_id" {
   description = "The access key ID."
   value       = try(aws_iam_access_key.default[0].id, "")
