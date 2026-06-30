@@ -1,7 +1,10 @@
+---
 name: tf-checks
+
 permissions:
   id-token: write
   contents: read
+
 on:
   pull_request:
     paths:
@@ -18,3 +21,4 @@ jobs:
       show_plan: false
     secrets:
       BUILD_ROLE: ${{ secrets.BUILD_ROLE }}
+...
