@@ -20,7 +20,7 @@
 | iam\_name | IAM username. | `string` | `""` | no |
 | label\_order | Label order, e.g. `name`,`application`. | `list(any)` | <pre>[<br>  "name",<br>  "environment"<br>]</pre> | no |
 | mail\_from\_domain | Subdomain (of the route53 zone) which is to be used as MAIL FROM address. | `string` | `""` | no |
-| managedby | ManagedBy, eg 'CloudDrove' | `string` | `"hello@clouddrove.com"` | no |
+| managedby | ManagedBy, eg 'CloudDrove' or 'AnmolNagpal' | `string` | `"hello@clouddrove.com"` | no |
 | mx\_type | MX type for Record Set. | `string` | `"MX"` | no |
 | name | Name  (e.g. `app` or `cluster`). | `string` | `""` | no |
 | repository | Terraform current module repo | `string` | `"https://github.com/clouddrove/terraform-aws-ses"` | no |
